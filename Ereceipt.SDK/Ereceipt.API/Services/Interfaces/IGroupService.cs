@@ -12,9 +12,6 @@ namespace Ereceipt.API.Services.Interfaces
         Task<Group> CreateGroupAsync(CreateGroupModel model);
         Task<Group> EditGroupAsync(EditGroupModel model);
         Task<Group> RemoveGroupAsync(Guid id);
-
-
-
         Task<List<Group>> GetMyGroupsAsync();
         Task<Group> GetGroupByIdAsync(Guid id);
         Task<List<GroupMember>> GetGroupMembersById(Guid id);
