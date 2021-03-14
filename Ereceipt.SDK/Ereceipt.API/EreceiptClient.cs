@@ -1,4 +1,5 @@
-﻿using Ereceipt.API.Services.Interfaces;
+﻿using Ereceipt.API.Services;
+using Ereceipt.API.Services.Interfaces;
 using Ereceipt.API.Settings;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,23 @@ namespace Ereceipt.API
         {
             this.accessToken = accessToken;
             urls = new BaseUrl();
+            new EreceiptClient(new GroupService(), new IdentityService(), new UserService(), new ReceiptService());
         }
 
-        public EreceiptClient(IGroupService groupService, IIdentityService identityService, IUserService userService, IReceiptService receiptService)
+        public EreceiptClient(IGroupService groupService,
+            IIdentityService identityService,
+            IUserService userService,
+            IReceiptService receiptService)
         {
             this.groupService = groupService;
             this.identityService = identityService;
             this.userService = userService;
             this.receiptService = receiptService;
         }
+
+        public IGroupService GroupService => groupService;
+        public IIdentityService IdentityService => identityService;
+        public IUserService UserService => userService;
+        public IReceiptService ReceiptService => receiptService;
     }
 }
