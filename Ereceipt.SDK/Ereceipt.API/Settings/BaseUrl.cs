@@ -17,10 +17,10 @@ namespace Ereceipt.API.Settings
 
         public BaseUrl()
         {
-            groupsUrl = $"{LocalHost}/groups";
-            usersUrl = $"{LocalHost}/users";
-            identityUrl = $"{LocalHost}/identity";
-            receiptsUrl = $"{LocalHost}/receipts";
+            groupsUrl = $"{LocalHost}/groups/";
+            usersUrl = $"{LocalHost}/users/";
+            identityUrl = $"{LocalHost}/identity/";
+            receiptsUrl = $"{LocalHost}/receipts/";
         }
 
         public string Group => groupsUrl;

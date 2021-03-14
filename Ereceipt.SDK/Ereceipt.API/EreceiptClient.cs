@@ -12,18 +12,16 @@ namespace Ereceipt.API
     {
         private string accessToken;
         private int id;
-        private BaseUrl urls;
 
         private IGroupService groupService;
         private IIdentityService identityService;
         private IUserService userService;
         private IReceiptService receiptService;
 
-        public EreceiptClient(string accessToken)
+        public EreceiptClient(string accessToken = null)
         {
             this.accessToken = accessToken;
-            urls = new BaseUrl();
-            new EreceiptClient(accessToken, new GroupService(), new IdentityService(), new UserService(), new ReceiptService());
+            //EreceiptClient(accessToken, new GroupService(), new IdentityService(), new UserService(), new ReceiptService());
         }
 
         public EreceiptClient(string token, IGroupService groupService,
