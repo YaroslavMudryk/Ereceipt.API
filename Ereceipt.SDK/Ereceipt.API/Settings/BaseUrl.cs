@@ -10,17 +10,22 @@ namespace Ereceipt.API.Settings
     {
         private const string LocalHost = "https://localhost:5001/api/v1";
 
-        private string groups;
-        private string users;
-        private string identity;
-        private string receipts;
+        private string groupsUrl;
+        private string usersUrl;
+        private string identityUrl;
+        private string receiptsUrl;
 
         public BaseUrl()
         {
-            groups = $"{LocalHost}/groups";
-            users = $"{LocalHost}/users";
-            identity = $"{LocalHost}/identity";
-            receipts = $"{LocalHost}/receipts";
+            groupsUrl = $"{LocalHost}/groups";
+            usersUrl = $"{LocalHost}/users";
+            identityUrl = $"{LocalHost}/identity";
+            receiptsUrl = $"{LocalHost}/receipts";
         }
+
+        public string Group => groupsUrl;
+        public string Users => usersUrl;
+        public string Identity => identityUrl;
+        public string Receipts => receiptsUrl;
     }
 }
