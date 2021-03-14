@@ -23,10 +23,10 @@ namespace Ereceipt.API
         {
             this.accessToken = accessToken;
             urls = new BaseUrl();
-            new EreceiptClient(new GroupService(), new IdentityService(), new UserService(), new ReceiptService());
+            new EreceiptClient(accessToken, new GroupService(), new IdentityService(), new UserService(), new ReceiptService());
         }
 
-        public EreceiptClient(IGroupService groupService,
+        public EreceiptClient(string token, IGroupService groupService,
             IIdentityService identityService,
             IUserService userService,
             IReceiptService receiptService)
