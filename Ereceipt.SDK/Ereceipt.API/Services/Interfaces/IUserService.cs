@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ereceipt.API.Models;
+using Ereceipt.API.Models.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +9,9 @@ namespace Ereceipt.API.Services.Interfaces
 {
     public interface IUserService
     {
-
+        Task<User> EditUserAsync(UserEditModel model);
+        Task<User> GetUserByIdAsync(int id);
+        Task<List<User>> GetAllUsers(int afterId = 0);
+        Task<List<User>> SearchUsersAsync(string name, int afterId = 0);
     }
 }

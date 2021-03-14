@@ -15,11 +15,10 @@ namespace Ereceipt.API.Settings
         private string accessToken;
         private HttpClient httpClient;
 
-        public WebRequest(string baseUrl, string accessToken = "", int timeout = 10)
+        public WebRequest(string accessToken = "", int timeout = 10)
         {
             this.accessToken = accessToken;
             httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(baseUrl);
             httpClient.Timeout = TimeSpan.FromSeconds(timeout);
             if (!string.IsNullOrEmpty(accessToken))
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);

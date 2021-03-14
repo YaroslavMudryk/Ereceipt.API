@@ -16,7 +16,7 @@ namespace Ereceipt.API.Services
         public IdentityService(string accessToken = "")
         {
             urls = new BaseUrl();
-            webRequest = new WebRequest(urls.Identity, accessToken, 10);
+            webRequest = new WebRequest(accessToken, 10);
         }
 
         public async Task<Token> LoginUserAsync(LoginUserModel model)
