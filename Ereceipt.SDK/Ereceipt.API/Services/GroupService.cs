@@ -18,6 +18,8 @@ namespace Ereceipt.API.Services
             webRequest = new WebRequest(urls.Group, accessToken, 10);
         }
 
+        public WebRequest WebRequest => webRequest;
+
         public async Task<Group> GetGroupByIdAsync(Guid id)
         {
             var response = await webRequest.GetAsync<Group>($"{id}");
@@ -26,9 +28,25 @@ namespace Ereceipt.API.Services
             return null;
         }
 
+        public async Task<List<GroupMember>> GetGroupMembersById(Guid id)
+        {
+            var response = await webRequest.GetAsync<List<GroupMember>>($"{id}/members");
+            if (response.OK)
+                return response.Data;
+            return null;
+        }
+
         public async Task<List<Group>> GetMyGroupsAsync()
         {
             var response = await webRequest.GetAsync<List<Group>>("my");
+            if (response.OK)
+                return response.Data;
+            return null;
+        }
+
+        public async Task<List<Receipt>> GetReceiptsByGroupId(Guid id, int skip = 0)
+        {
+            var response = await webRequest.GetAsync<List<Receipt>>($"{id}/receipts");
             if (response.OK)
                 return response.Data;
             return null;

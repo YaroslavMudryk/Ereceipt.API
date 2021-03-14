@@ -10,5 +10,7 @@ namespace Ereceipt.API.Services.Interfaces
     {
         Task<List<Group>> GetMyGroupsAsync();
         Task<Group> GetGroupByIdAsync(Guid id);
+        Task<List<GroupMember>> GetGroupMembersById(Guid id);
+        Task<List<Receipt>> GetReceiptsByGroupId(Guid id, int skip = 0);
     }
 }

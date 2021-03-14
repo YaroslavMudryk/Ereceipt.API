@@ -9,10 +9,11 @@ namespace EreceiptExample
     {
         static async Task Main(string[] args)
         {
-            var client = new EreceiptClient("", new GroupService(), new IdentityService(), new UserService(), new ReceiptService());
+            var client = new EreceiptClient();
             var group = await client.GroupService.GetGroupByIdAsync(new Guid("4e762d73-8d82-47bb-26c0-08d8e6cf4c3d"));
-
-
+            var myGroups = await client.GroupService.GetMyGroupsAsync();
+            var members = await client.GroupService.GetGroupMembersById(new Guid("4e762d73-8d82-47bb-26c0-08d8e6cf4c3d"));
+        
         }
     }
 }

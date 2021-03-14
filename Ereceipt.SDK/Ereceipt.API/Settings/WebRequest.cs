@@ -35,7 +35,8 @@ namespace Ereceipt.API.Settings
         {
             var resposne = await httpClient.GetAsync(url);
             CheckResponse(resposne);
-            return JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
+            var content = JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
+            return content;
         }
 
         public async Task<Response<T>> PostAsync<T>(string url, object Data)

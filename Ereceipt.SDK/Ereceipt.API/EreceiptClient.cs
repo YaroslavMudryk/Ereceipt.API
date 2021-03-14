@@ -18,11 +18,6 @@ namespace Ereceipt.API
         private IUserService userService;
         private IReceiptService receiptService;
 
-        public EreceiptClient(string accessToken = null)
-        {
-            this.accessToken = accessToken;
-            //EreceiptClient(accessToken, new GroupService(), new IdentityService(), new UserService(), new ReceiptService());
-        }
 
         public EreceiptClient(string token, IGroupService groupService,
             IIdentityService identityService,
@@ -33,6 +28,11 @@ namespace Ereceipt.API
             this.identityService = identityService;
             this.userService = userService;
             this.receiptService = receiptService;
+        }
+
+        public EreceiptClient(string token = "") : this(token, new GroupService(), new IdentityService(), new UserService(), new ReceiptService())
+        {
+
         }
 
         public IGroupService GroupService => groupService;
