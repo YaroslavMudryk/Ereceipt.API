@@ -69,7 +69,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Receipt> RemoveReceiptAsync(Guid id)
         {
-            var response = await webRequest.DeleteAsync<Receipt>(urls.Receipts + $"{id}");
+            var response = await webRequest.DeleteAsync<Receipt>(urls.Receipts + $"/{id}");
             if (response.OK)
                 return response.Data;
             return null;
