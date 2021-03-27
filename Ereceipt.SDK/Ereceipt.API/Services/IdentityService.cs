@@ -13,17 +13,23 @@ namespace Ereceipt.API.Services
     {
         private WebRequest webRequest;
         private BaseUrl urls;
+        private string token;
         public IdentityService(string accessToken = "")
         {
             urls = new BaseUrl();
             webRequest = new WebRequest(accessToken, 10);
         }
 
+        public string Token => token;
+
         public async Task<Token> LoginUserAsync(LoginUserModel model)
         {
             var response = await webRequest.PostAsync<Token>("login", model);
             if (response.OK)
+            {
+                token = response.Data.AccessToken;
                 return response.Data;
+            }
             return null;
         }
 

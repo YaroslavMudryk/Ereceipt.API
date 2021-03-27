@@ -11,5 +11,6 @@ namespace Ereceipt.API.Services.Interfaces
     {
         Task<User> RegisterUserAsync(RegisterUserModel model);
         Task<Token> LoginUserAsync(LoginUserModel model);
+        string Token { get; }
     }
 }

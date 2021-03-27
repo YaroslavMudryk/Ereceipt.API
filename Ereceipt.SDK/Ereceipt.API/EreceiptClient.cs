@@ -1,4 +1,5 @@
-﻿using Ereceipt.API.Services;
+﻿using Ereceipt.API.Models.Helpers;
+using Ereceipt.API.Services;
 using Ereceipt.API.Services.Interfaces;
 using Ereceipt.API.Settings;
 using System;
@@ -12,7 +13,7 @@ namespace Ereceipt.API
     {
         private string accessToken;
         private int id;
-
+        private Token token;
         private IGroupService groupService;
         private IIdentityService identityService;
         private IUserService userService;
@@ -24,6 +25,7 @@ namespace Ereceipt.API
             IUserService userService,
             IReceiptService receiptService)
         {
+            accessToken = token;
             this.groupService = groupService;
             this.identityService = identityService;
             this.userService = userService;
@@ -39,5 +41,15 @@ namespace Ereceipt.API
         public IIdentityService IdentityService => identityService;
         public IUserService UserService => userService;
         public IReceiptService ReceiptService => receiptService;
+        public void AuthorizeUser(Token token)
+        {
+            this.token = token;
+            accessToken = token.AccessToken;
+            groupService = new GroupService(accessToken);
+            receiptService = new ReceiptService(accessToken);
+            userService = new UserService(accessToken);
+        }
+
+        public string Token => token.AccessToken;
     }
 }
