@@ -19,7 +19,7 @@ namespace Ereceipt.API.Settings
         {
             groupsUrl = $"{LocalHost}/groups";
             usersUrl = $"{LocalHost}/users";
-            identityUrl = $"{LocalHost}/identity";
+            identityUrl = $"{LocalHost}/identity/";
             receiptsUrl = $"{LocalHost}/receipts";
         }
 

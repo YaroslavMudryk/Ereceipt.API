@@ -11,11 +11,11 @@ namespace EreceiptExample
         static async Task Main(string[] args)
         {
             var client = new EreceiptClient();
-            var token = await client.IdentityService.LoginUserAsync(new LoginUserModel("",""));
+            var token = await client.IdentityService.LoginUserAsync(new LoginUserModel("yaroslav.mudryk@gmail.com", "SomePassword"));
             client.AuthorizeUser(token);
-            var group = await client.GroupService.GetGroupByIdAsync(Guid.Parse("4e762d73-8d82-47bb-26c0-08d8e6cf4c3d"));
             var myGroups = await client.GroupService.GetMyGroupsAsync();
-            var members = await client.GroupService.GetGroupMembersById(new Guid("4e762d73-8d82-47bb-26c0-08d8e6cf4c3d"));
+            var group = await client.GroupService.GetGroupByIdAsync(myGroups[0].Id);
+            var members = await client.GroupService.GetGroupMembersById(myGroups[0].Id);
             var users = await client.UserService.GetAllUsers();
             var users2 = await client.UserService.GetAllUsers(1);
         }
