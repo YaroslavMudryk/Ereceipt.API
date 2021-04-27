@@ -15,20 +15,14 @@ namespace Ereceipt.API.Settings
         private string accessToken;
         private HttpClient httpClient;
 
-        public WebRequest(string baseAddress, string accessToken = "", int timeout = 10)
+        public WebRequest(string accessToken = "", int timeout = 20)
         {
             this.accessToken = accessToken;
             httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(baseAddress);
+            httpClient.DefaultRequestVersion = new Version("2.0");
             httpClient.Timeout = TimeSpan.FromSeconds(timeout);
             if (!string.IsNullOrEmpty(accessToken))
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-        }
-
-        public void SetAccessToken(string accessToken)
-        {
-            this.accessToken = accessToken;
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         }
 
         public async Task<Response<T>> GetAsync<T>(string url)
@@ -79,7 +73,11 @@ namespace Ereceipt.API.Settings
         private void CheckResponse(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    throw new UnauthorizedAccessException("User is unauthorized");
                 throw new ApiErrorException("Response was returned as error");
+            }
         }
     }
 }

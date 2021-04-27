@@ -13,7 +13,7 @@ namespace Ereceipt.API.Services.Interfaces
         Task<Receipt> EditReceiptAsync(EditReceiptModel receipt);
         Task<Receipt> RemoveReceiptAsync(Guid id);
         Task<Receipt> GetReceiptByIdAsync(Guid id);
-        Task<List<Receipt>> GetMyReceiptsAsync(int skip);
+        Task<List<Receipt>> GetMyReceiptsAsync(int offset);
         Task<int> GetCountOfMyReceiptsAsync();
         Task<Receipt> AddReceiptToGroupAsync(ReceiptGroupModel model);
         Task<Receipt> RemoveReceiptFromGroupAsync(ReceiptGroupModel model);

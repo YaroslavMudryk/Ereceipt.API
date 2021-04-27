@@ -17,14 +17,14 @@ namespace Ereceipt.API.Services
         public IdentityService(string accessToken = "")
         {
             urls = new BaseUrl();
-            webRequest = new WebRequest(urls.Identity, accessToken, 10);
+            webRequest = new WebRequest(accessToken, 10);
         }
 
         public string Token => token;
 
         public async Task<Token> LoginUserAsync(LoginUserModel model)
         {
-            var response = await webRequest.PostAsync<Token>("login", model);
+            var response = await webRequest.PostAsync<Token>($"{urls.Identity}/login", model);
             if (response.OK)
             {
                 token = response.Data.AccessToken;
@@ -35,7 +35,7 @@ namespace Ereceipt.API.Services
 
         public async Task<User> RegisterUserAsync(RegisterUserModel model)
         {
-            var response = await webRequest.PostAsync<User>("register", model);
+            var response = await webRequest.PostAsync<User>($"{urls.Identity}/register", model);
             if (response.OK)
                 return response.Data;
             return null;

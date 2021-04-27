@@ -17,14 +17,14 @@ namespace Ereceipt.API.Services
         public UserService(string accessToken = "")
         {
             urls = new BaseUrl();
-            webRequest = new WebRequest(urls.Users, accessToken, 10);
+            webRequest = new WebRequest(accessToken, 10);
         }
 
         public int LastUserId => lastUserId;
 
         public async Task<User> EditUserAsync(UserEditModel model)
         {
-            var response = await webRequest.PutAsync<User>($"{model.Id}", model);
+            var response = await webRequest.PutAsync<User>($"{urls.Users}/{model.Id}", model);
             if (response.OK)
                 return response.Data;
             return null;
@@ -32,7 +32,7 @@ namespace Ereceipt.API.Services
 
         public async Task<List<User>> GetAllUsers(int afterId = 0)
         {
-            var response = await webRequest.GetAsync<List<User>>($"?afterId={afterId}");
+            var response = await webRequest.GetAsync<List<User>>($"{urls.Users}?afterId={afterId}");
             if(response.OK)
             {
                 lastUserId = response.Data.LastOrDefault().Id;
@@ -43,7 +43,7 @@ namespace Ereceipt.API.Services
 
         public async Task<User> GetUserByIdAsync(int id)
         {
-            var response = await webRequest.GetAsync<User>($"/{id}");
+            var response = await webRequest.GetAsync<User>($"{urls.Users}/{id}");
             if (response.OK)
                 return response.Data;
             return null;
@@ -51,7 +51,7 @@ namespace Ereceipt.API.Services
 
         public async Task<List<User>> SearchUsersAsync(string name, int afterId = 0)
         {
-            var response = await webRequest.GetAsync<List<User>>($"/search?name={name}&aftedId={afterId}");
+            var response = await webRequest.GetAsync<List<User>>($"{urls.Users}/search?name={name}&aftedId={afterId}");
             if (response.OK)
                 return response.Data;
             return null;

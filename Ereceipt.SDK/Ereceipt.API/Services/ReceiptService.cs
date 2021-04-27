@@ -16,12 +16,12 @@ namespace Ereceipt.API.Services
         public ReceiptService(string accessToken = "")
         {
             urls = new BaseUrl();
-            webRequest = new WebRequest(urls.Receipts, accessToken, 10);
+            webRequest = new WebRequest(accessToken, 10);
         }
 
         public async Task<Receipt> AddReceiptToGroupAsync(ReceiptGroupModel model)
         {
-            var response = await webRequest.PostAsync<Receipt>("/togroup", model);
+            var response = await webRequest.PostAsync<Receipt>($"{urls.Receipts}/togroup", model);
             if (response.OK)
                 return response.Data;
             return null;
@@ -29,7 +29,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Receipt> CreateReceiptAsync(CreateReceiptModel receipt)
         {
-            var response = await webRequest.PostAsync<Receipt>(null, receipt);
+            var response = await webRequest.PostAsync<Receipt>($"{urls.Receipts}", receipt);
             if (response.OK)
                 return response.Data;
             return null;
@@ -37,7 +37,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Receipt> EditReceiptAsync(EditReceiptModel receipt)
         {
-            var response = await webRequest.PutAsync<Receipt>(null, receipt);
+            var response = await webRequest.PutAsync<Receipt>($"{urls.Receipts}", receipt);
             if (response.OK)
                 return response.Data;
             return null;
@@ -45,15 +45,15 @@ namespace Ereceipt.API.Services
 
         public async Task<int> GetCountOfMyReceiptsAsync()
         {
-            var response = await webRequest.GetAsync<int>("/my/count");
+            var response = await webRequest.GetAsync<int>($"{urls.Receipts}/my/count");
             if (response.OK)
                 return response.Data;
             return default;
         }
 
-        public async Task<List<Receipt>> GetMyReceiptsAsync(int skip)
+        public async Task<List<Receipt>> GetMyReceiptsAsync(int offset)
         {
-            var response = await webRequest.GetAsync<List<Receipt>>("/my");
+            var response = await webRequest.GetAsync<List<Receipt>>($"{urls.Receipts}/my?skip={offset}");
             if (response.OK)
                 return response.Data;
             return null;
@@ -61,7 +61,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Receipt> GetReceiptByIdAsync(Guid id)
         {
-            var response = await webRequest.GetAsync<Receipt>($"/{id}");
+            var response = await webRequest.GetAsync<Receipt>($"{urls.Receipts}/{id}");
             if (response.OK)
                 return response.Data;
             return null;
@@ -69,7 +69,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Receipt> RemoveReceiptAsync(Guid id)
         {
-            var response = await webRequest.DeleteAsync<Receipt>($"/{id}");
+            var response = await webRequest.DeleteAsync<Receipt>($"{urls.Receipts}/{id}");
             if (response.OK)
                 return response.Data;
             return null;
@@ -77,7 +77,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Receipt> RemoveReceiptFromGroupAsync(ReceiptGroupModel model)
         {
-            var response = await webRequest.PostAsync<Receipt>("/fromgroup", model);
+            var response = await webRequest.PostAsync<Receipt>($"{urls.Receipts}/fromgroup", model);
             if (response.OK)
                 return response.Data;
             return null;

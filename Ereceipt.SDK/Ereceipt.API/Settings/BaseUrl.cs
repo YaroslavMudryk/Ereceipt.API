@@ -8,7 +8,8 @@ namespace Ereceipt.API.Settings
 {
     public class BaseUrl
     {
-        private const string LocalHost = "https://localhost:5001/api/v1";
+        private const string LocalHost = "https://localhost:5001/api/v1/";
+        private const string ServerHost = "https://e-receipt.com/api/v1/";
 
         private string groupsUrl;
         private string usersUrl;
@@ -17,10 +18,10 @@ namespace Ereceipt.API.Settings
 
         public BaseUrl()
         {
-            groupsUrl = $"{LocalHost}/groups";
-            usersUrl = $"{LocalHost}/users";
-            identityUrl = $"{LocalHost}/identity/";
-            receiptsUrl = $"{LocalHost}/receipts";
+            groupsUrl = $"{LocalHost}groups";
+            usersUrl = $"{LocalHost}users";
+            identityUrl = $"{LocalHost}identity";
+            receiptsUrl = $"{LocalHost}receipts";
         }
 
         public string Group => groupsUrl;
