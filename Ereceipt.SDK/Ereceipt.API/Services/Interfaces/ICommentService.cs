@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.API.Services.Interfaces
 {
-    public interface ICommentService
+    public interface ICommentService : IService
     {
         Task<Comment> CreateCommentAsync(CommentCreateModel model);
         Task<Comment> EditCommentAsync(CommentEditModel model);

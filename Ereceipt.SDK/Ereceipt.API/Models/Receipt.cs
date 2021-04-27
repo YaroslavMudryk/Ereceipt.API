@@ -32,6 +32,8 @@ namespace Ereceipt.API.Models
         public User User { get; set; }
         [JsonPropertyName("group")]
         public Group Group { get; set; }
+        [JsonPropertyName("commentsCount")]
+        public int CommentsCount { get; set; }
     }
 
     public enum ReceiptType

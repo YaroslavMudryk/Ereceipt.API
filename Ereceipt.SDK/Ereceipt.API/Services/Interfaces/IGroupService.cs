@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.API.Services.Interfaces
 {
-    public interface IGroupService
+    public interface IGroupService : IService
     {
         Task<Group> CreateGroupAsync(CreateGroupModel model);
         Task<Group> EditGroupAsync(EditGroupModel model);

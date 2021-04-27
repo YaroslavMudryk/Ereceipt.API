@@ -13,17 +13,19 @@ namespace Ereceipt.API.Services
     {
         private WebRequest webRequest;
         private BaseUrl urls;
+        public string BasicRoute { get; }
         public GroupService(string accessToken = "")
         {
             urls = new BaseUrl();
             webRequest = new WebRequest(accessToken, 10);
+            BasicRoute = ApiRoutes.V1.Groups.Basic;
         }
 
         public WebRequest WebRequest => webRequest;
 
         public async Task<Group> CreateGroupAsync(CreateGroupModel model)
         {
-            var response = await webRequest.PostAsync<Group>(urls.Group, model);
+            var response = await webRequest.PostAsync<Group>(BasicRoute, model);
             if (response.OK)
                 return response.Data;
             return null;
@@ -31,7 +33,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Group> EditGroupAsync(EditGroupModel model)
         {
-            var response = await webRequest.PutAsync<Group>(urls.Group, model);
+            var response = await webRequest.PutAsync<Group>(BasicRoute, model);
             if (response.OK)
                 return response.Data;
             return null;
@@ -39,7 +41,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Group> GetGroupByIdAsync(Guid id)
         {
-            var response = await webRequest.GetAsync<Group>($"{urls.Group}/{id}");
+            var response = await webRequest.GetAsync<Group>($"{BasicRoute}/{id}");
             if (response.OK)
                 return response.Data;
             return null;
@@ -47,7 +49,7 @@ namespace Ereceipt.API.Services
 
         public async Task<List<GroupMember>> GetGroupMembersById(Guid id)
         {
-            var response = await webRequest.GetAsync<List<GroupMember>>($"{urls.Group}/{id}/members");
+            var response = await webRequest.GetAsync<List<GroupMember>>($"{BasicRoute}/{id}/members");
             if (response.OK)
                 return response.Data;
             return null;
@@ -55,7 +57,7 @@ namespace Ereceipt.API.Services
 
         public async Task<List<Group>> GetMyGroupsAsync()
         {
-            var response = await webRequest.GetAsync<List<Group>>($"{urls.Group}/my");
+            var response = await webRequest.GetAsync<List<Group>>($"{BasicRoute}/my");
             if (response.OK)
                 return response.Data;
             return null;
@@ -63,7 +65,7 @@ namespace Ereceipt.API.Services
 
         public async Task<List<Receipt>> GetReceiptsByGroupId(Guid id, int skip = 0)
         {
-            var response = await webRequest.GetAsync<List<Receipt>>($"{urls.Group}/{id}/receipts");
+            var response = await webRequest.GetAsync<List<Receipt>>($"{BasicRoute}/{id}/receipts");
             if (response.OK)
                 return response.Data;
             return null;
@@ -71,7 +73,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Group> RemoveGroupAsync(Guid id)
         {
-            var response = await webRequest.DeleteAsync<Group>($"{urls.Group}?id={id}");
+            var response = await webRequest.DeleteAsync<Group>($"{BasicRoute}?id={id}");
             if (response.OK)
                 return response.Data;
             return null;

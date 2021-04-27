@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.API.Services.Interfaces
 {
-    public interface IReceiptService
+    public interface IReceiptService : IService
     {
         Task<Receipt> CreateReceiptAsync(CreateReceiptModel receipt);
         Task<Receipt> EditReceiptAsync(EditReceiptModel receipt);

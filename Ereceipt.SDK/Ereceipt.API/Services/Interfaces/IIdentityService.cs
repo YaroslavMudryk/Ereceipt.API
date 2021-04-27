@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.API.Services.Interfaces
 {
-    public interface IIdentityService
+    public interface IIdentityService : IService
     {
         Task<User> RegisterUserAsync(RegisterUserModel model);
         Task<Token> LoginUserAsync(LoginUserModel model);

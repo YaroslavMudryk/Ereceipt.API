@@ -13,16 +13,18 @@ namespace Ereceipt.API.Services
     {
         private WebRequest webRequest;
         private BaseUrl urls;
+        public string BasicRoute { get; }
         public CommentService(string accessToken = "")
         {
             urls = new BaseUrl();
             webRequest = new WebRequest(accessToken, 10);
+            BasicRoute = ApiRoutes.V1.Comments.Basic;
         }
 
 
         public async Task<Comment> CreateCommentAsync(CommentCreateModel model)
         {
-            var response = await webRequest.PostAsync<Comment>(urls.Comments, model);
+            var response = await webRequest.PostAsync<Comment>(BasicRoute, model);
             if (response.OK)
                 return response.Data;
             return null;
@@ -30,7 +32,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Comment> EditCommentAsync(CommentEditModel model)
         {
-            var response = await webRequest.PutAsync<Comment>(urls.Comments, model);
+            var response = await webRequest.PutAsync<Comment>(BasicRoute, model);
             if (response.OK)
                 return response.Data;
             return null;
@@ -38,7 +40,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Comment> GetCommentByIdAsync(long id)
         {
-            var response = await webRequest.GetAsync<Comment>($"{urls.Comments}/{id}");
+            var response = await webRequest.GetAsync<Comment>($"{BasicRoute}/{id}");
             if (response.OK)
                 return response.Data;
             return null;
@@ -46,7 +48,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Comment> RemoveCommentAsync(long id)
         {
-            var response = await webRequest.DeleteAsync<Comment>($"{urls.Comments}/{id}");
+            var response = await webRequest.DeleteAsync<Comment>($"{BasicRoute}/{id}");
             if (response.OK)
                 return response.Data;
             return null;
