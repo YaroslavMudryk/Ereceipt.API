@@ -7,8 +7,6 @@ namespace Ereceipt.API
     {
         Task LoginAsync(LoginUserModel model);
         Task RegisterAsync(RegisterUserModel model);
-        Task SaveTokenAsync();
-        Task GetTokenAsync();
         public string Token { get; }
     }
 }
