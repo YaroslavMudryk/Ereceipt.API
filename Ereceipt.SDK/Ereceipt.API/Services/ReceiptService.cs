@@ -43,6 +43,14 @@ namespace Ereceipt.API.Services
             return null;
         }
 
+        public async Task<List<Comment>> GetCommentsByReceiptIdAsync(Guid id)
+        {
+            var response = await webRequest.GetAsync<List<Comment>>($"{urls.Receipts}/{id}/comments");
+            if (response.OK)
+                return response.Data;
+            return default;
+        }
+
         public async Task<int> GetCountOfMyReceiptsAsync()
         {
             var response = await webRequest.GetAsync<int>($"{urls.Receipts}/my/count");
