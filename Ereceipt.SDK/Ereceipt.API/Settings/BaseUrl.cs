@@ -15,6 +15,7 @@ namespace Ereceipt.API.Settings
         private string usersUrl;
         private string identityUrl;
         private string receiptsUrl;
+        private string commentsUrl;
 
         public BaseUrl()
         {
@@ -22,11 +23,13 @@ namespace Ereceipt.API.Settings
             usersUrl = $"{LocalHost}users";
             identityUrl = $"{LocalHost}identity";
             receiptsUrl = $"{LocalHost}receipts";
+            commentsUrl = $"{LocalHost}comments";
         }
 
         public string Group => groupsUrl;
         public string Users => usersUrl;
         public string Identity => identityUrl;
         public string Receipts => receiptsUrl;
+        public string Comments=> commentsUrl;
     }
 }
