@@ -13,5 +13,6 @@ namespace Ereceipt.API
         IUserService UserService { get; }
         IReceiptService ReceiptService { get; }
         ICommentService CommentService { get; }
+        ICurrencyService CurrencyService { get; }
     }
 }

@@ -17,32 +17,36 @@ namespace Ereceipt.API
         private IUserService userService;
         private IReceiptService receiptService;
         private ICommentService commentService;
+        private ICurrencyService currencyService;
 
 
         public EreceiptClient(string token, IGroupService groupService,
             IUserService userService,
             IReceiptService receiptService,
-            ICommentService commentService)
+            ICommentService commentService,
+            ICurrencyService currencyService)
         {
             accessToken = token;
             this.groupService = groupService;
             this.userService = userService;
             this.receiptService = receiptService;
             this.commentService = commentService;
+            this.currencyService = currencyService;
             urls = new BaseUrl();
             webRequest = new WebRequest(urls.Identity);
         }
 
-        public EreceiptClient(string token) : this(token, new GroupService(token), new UserService(token), new ReceiptService(token), new CommentService(token))
+        public EreceiptClient(string token) : this(token, new GroupService(token), new UserService(token), new ReceiptService(token), new CommentService(token), new CurrencyService(token))
         {}
 
-        public EreceiptClient() : this(null, new GroupService(), new UserService(), new ReceiptService(), new CommentService())
+        public EreceiptClient() : this(null, new GroupService(), new UserService(), new ReceiptService(), new CommentService(), new CurrencyService())
         {}
 
         public IGroupService GroupService => groupService;
         public IUserService UserService => userService;
         public IReceiptService ReceiptService => receiptService;
         public ICommentService CommentService => commentService;
+        public ICurrencyService CurrencyService => currencyService;
         public void AuthorizeUser(Token token)
         {
             this.token = token;
@@ -78,6 +82,7 @@ namespace Ereceipt.API
             receiptService = new ReceiptService(token);
             userService = new UserService(token);
             commentService = new CommentService(token);
+            currencyService = new CurrencyService(token);
         }
 
         public string Token => token.AccessToken;

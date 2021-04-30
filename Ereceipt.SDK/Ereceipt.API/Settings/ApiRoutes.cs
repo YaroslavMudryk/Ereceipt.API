@@ -40,6 +40,11 @@ namespace Ereceipt.API.Settings
             {
                 public const string Basic = LocalHost + Root + "/v1" + "/identity";
             }
+
+            public static class Currencies
+            {
+                public const string Basic = LocalHost + Root + "/v1" + "/currencies";
+            }
         }
     }
 }
