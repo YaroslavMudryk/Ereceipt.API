@@ -21,7 +21,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Receipt> AddReceiptToGroupAsync(ReceiptGroupModel model)
         {
-            var response = await webRequest.PostAsync<Receipt>($"{BasicRoute}/togroup", model);
+            var response = await webRequest.PostAsync<Receipt>($"{BasicRoute}/to-group", model);
             if (response.OK)
                 return response.Data;
             return null;
@@ -85,7 +85,7 @@ namespace Ereceipt.API.Services
 
         public async Task<Receipt> RemoveReceiptFromGroupAsync(ReceiptGroupModel model)
         {
-            var response = await webRequest.PostAsync<Receipt>($"{BasicRoute}/fromgroup", model);
+            var response = await webRequest.PostAsync<Receipt>($"{BasicRoute}/from-group", model);
             if (response.OK)
                 return response.Data;
             return null;
