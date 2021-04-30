@@ -9,15 +9,16 @@ namespace Ereceipt.API
 {
     public sealed class EreceiptClient : IReceiptClient
     {
-        private string accessToken;
-        private Token token;
-        private WebRequest webRequest;
-        private BaseUrl urls;
-        private IGroupService groupService;
-        private IUserService userService;
-        private IReceiptService receiptService;
-        private ICommentService commentService;
-        private ICurrencyService currencyService;
+        private string _accessToken;
+        private string _version;
+        private Token _token;
+        private WebRequest _webRequest;
+        private BaseUrl _urls;
+        private IGroupService _groupService;
+        private IUserService _userService;
+        private IReceiptService _receiptService;
+        private ICommentService _commentService;
+        private ICurrencyService _currencyService;
 
 
         public EreceiptClient(string token, IGroupService groupService,
@@ -26,14 +27,15 @@ namespace Ereceipt.API
             ICommentService commentService,
             ICurrencyService currencyService)
         {
-            accessToken = token;
-            this.groupService = groupService;
-            this.userService = userService;
-            this.receiptService = receiptService;
-            this.commentService = commentService;
-            this.currencyService = currencyService;
-            urls = new BaseUrl();
-            webRequest = new WebRequest(urls.Identity);
+            _accessToken = token;
+            _groupService = groupService;
+            _userService = userService;
+            _receiptService = receiptService;
+            _commentService = commentService;
+            _currencyService = currencyService;
+            _urls = new BaseUrl();
+            _webRequest = new WebRequest(_urls.Identity);
+            _version = "0.9.0";
         }
 
         public EreceiptClient(string token) : this(token, new GroupService(token), new UserService(token), new ReceiptService(token), new CommentService(token), new CurrencyService(token))
@@ -42,24 +44,24 @@ namespace Ereceipt.API
         public EreceiptClient() : this(null, new GroupService(), new UserService(), new ReceiptService(), new CommentService(), new CurrencyService())
         {}
 
-        public IGroupService GroupService => groupService;
-        public IUserService UserService => userService;
-        public IReceiptService ReceiptService => receiptService;
-        public ICommentService CommentService => commentService;
-        public ICurrencyService CurrencyService => currencyService;
+        public IGroupService GroupService => _groupService;
+        public IUserService UserService => _userService;
+        public IReceiptService ReceiptService => _receiptService;
+        public ICommentService CommentService => _commentService;
+        public ICurrencyService CurrencyService => _currencyService;
         public void AuthorizeUser(Token token)
         {
-            this.token = token;
-            accessToken = token.AccessToken;
-            InitServicesByToken(accessToken);
+            this._token = token;
+            _accessToken = token.AccessToken;
+            InitServicesByToken(_accessToken);
         }
 
         public async Task LoginAsync(LoginUserModel model)
         {
-            var token = await webRequest.PostAsync<Token>("login", model);
+            var token = await _webRequest.PostAsync<Token>("login", model);
             if (token.OK)
             {
-                this.token = token.Data;
+                this._token = token.Data;
                 InitServicesByToken(token.Data.AccessToken);
                 return;
             }
@@ -68,7 +70,7 @@ namespace Ereceipt.API
 
         public async Task RegisterAsync(RegisterUserModel model)
         {
-            var user = await webRequest.PostAsync<User>("register", model);
+            var user = await _webRequest.PostAsync<User>("register", model);
             if (user.OK)
             {
                 await LoginAsync(new LoginUserModel(model.Login, model.Password));
@@ -78,13 +80,15 @@ namespace Ereceipt.API
 
         private void InitServicesByToken(string token)
         {
-            groupService = new GroupService(token);
-            receiptService = new ReceiptService(token);
-            userService = new UserService(token);
-            commentService = new CommentService(token);
-            currencyService = new CurrencyService(token);
+            _groupService = new GroupService(token);
+            _receiptService = new ReceiptService(token);
+            _userService = new UserService(token);
+            _commentService = new CommentService(token);
+            _currencyService = new CurrencyService(token);
         }
 
-        public string Token => token.AccessToken;
+        public string Token => _token.AccessToken;
+
+        public string Version => _version;
     }
 }
