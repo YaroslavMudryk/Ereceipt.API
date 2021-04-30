@@ -22,6 +22,8 @@ namespace Ereceipt.API.Models
         public double TotalPrice { get; set; }
         [JsonPropertyName("products")]
         public List<Product> Products { get; set; }
+        [JsonPropertyName("currency")]
+        public Currency Currency { get; set; }
         [JsonPropertyName("isImportant")]
         public bool IsImportant { get; set; }
         [JsonPropertyName("canEdit")]

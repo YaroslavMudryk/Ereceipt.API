@@ -10,6 +10,7 @@ namespace Ereceipt.API.Models.Helpers
         public string ShopName { get; set; }
         public bool IsImportant { get; set; }
         public Guid? GroupId { get; set; }
+        public int? CurrencyId { get; set; }
         public List<CreateProductModel> Products { get; set; }
     }
 }
