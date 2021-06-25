@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-
 namespace Ereceipt.API.Models
 {
     public class Currency

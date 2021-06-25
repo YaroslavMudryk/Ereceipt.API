@@ -2,12 +2,10 @@
 using Ereceipt.API.Models.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.API.Services.Interfaces
 {
-    public interface IReceiptService : IService
+    public interface IReceiptService
     {
         Task<Receipt> CreateReceiptAsync(CreateReceiptModel receipt);
         Task<Receipt> EditReceiptAsync(EditReceiptModel receipt);

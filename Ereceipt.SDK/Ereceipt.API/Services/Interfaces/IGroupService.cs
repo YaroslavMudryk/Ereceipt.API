@@ -2,12 +2,10 @@
 using Ereceipt.API.Models.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.API.Services.Interfaces
 {
-    public interface IGroupService : IService
+    public interface IGroupService
     {
         Task<Group> CreateGroupAsync(CreateGroupModel model);
         Task<Group> EditGroupAsync(EditGroupModel model);

@@ -13,7 +13,6 @@ namespace Ereceipt.API
         private string _version;
         private Token _token;
         private WebRequest _webRequest;
-        private BaseUrl _urls;
         private IBudgetService _budgetService;
         private IGroupService _groupService;
         private IUserService _userService;
@@ -37,8 +36,7 @@ namespace Ereceipt.API
             _receiptService = receiptService;
             _commentService = commentService;
             _currencyService = currencyService;
-            _urls = new BaseUrl();
-            _webRequest = new WebRequest(_urls.Identity);
+            _webRequest = new WebRequest(ApiRoutes.V1.Identity.Basic);
             _version = "0.9.0";
         }
 
@@ -64,7 +62,7 @@ namespace Ereceipt.API
 
         public async Task LoginAsync(LoginUserModel model)
         {
-            var token = await _webRequest.PostAsync<Token>("login", model);
+            var token = await _webRequest.PostAsync<Token>("/login", model);
             if (token.OK)
             {
                 AuthorizeUser(token.Data);
@@ -75,10 +73,14 @@ namespace Ereceipt.API
 
         public async Task RegisterAsync(RegisterUserModel model)
         {
-            var user = await _webRequest.PostAsync<User>("register", model);
+            var user = await _webRequest.PostAsync<User>("/register", model);
             if (user.OK)
             {
-                await LoginAsync(new LoginUserModel(model.Login, model.Password));
+                await LoginAsync(new LoginUserModel
+                {
+                    Login = model.Login,
+                    Password = model.Password
+                });
             }
             throw new RegisterFailedException(user.ErrorMessage);
         }
