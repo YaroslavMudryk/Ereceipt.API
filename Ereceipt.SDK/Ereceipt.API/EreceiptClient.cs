@@ -14,6 +14,7 @@ namespace Ereceipt.API
         private Token _token;
         private WebRequest _webRequest;
         private BaseUrl _urls;
+        private IBudgetService _budgetService;
         private IGroupService _groupService;
         private IUserService _userService;
         private IReceiptService _receiptService;
@@ -21,13 +22,16 @@ namespace Ereceipt.API
         private ICurrencyService _currencyService;
 
 
-        public EreceiptClient(string token, IGroupService groupService,
+        public EreceiptClient(string token,
+            IBudgetService budgetService,
+            IGroupService groupService,
             IUserService userService,
             IReceiptService receiptService,
             ICommentService commentService,
             ICurrencyService currencyService)
         {
             _accessToken = token;
+            _budgetService = budgetService;
             _groupService = groupService;
             _userService = userService;
             _receiptService = receiptService;
@@ -38,17 +42,19 @@ namespace Ereceipt.API
             _version = "0.9.0";
         }
 
-        public EreceiptClient(string token) : this(token, new GroupService(token), new UserService(token), new ReceiptService(token), new CommentService(token), new CurrencyService(token))
+        public EreceiptClient(string token) : this(token, new BudgetService(token),new GroupService(token), new UserService(token), new ReceiptService(token), new CommentService(token), new CurrencyService(token))
         {}
 
-        public EreceiptClient() : this(null, new GroupService(), new UserService(), new ReceiptService(), new CommentService(), new CurrencyService())
+        public EreceiptClient() : this(null, new BudgetService(), new GroupService(), new UserService(), new ReceiptService(), new CommentService(), new CurrencyService())
         {}
 
+        public IBudgetService BudgetService => _budgetService;
         public IGroupService GroupService => _groupService;
         public IUserService UserService => _userService;
         public IReceiptService ReceiptService => _receiptService;
         public ICommentService CommentService => _commentService;
         public ICurrencyService CurrencyService => _currencyService;
+
         public void AuthorizeUser(Token token)
         {
             _token = token;
