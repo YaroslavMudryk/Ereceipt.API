@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace Ereceipt.API.Models.Helpers
 {
     public class BudgetReceiptCreateModel

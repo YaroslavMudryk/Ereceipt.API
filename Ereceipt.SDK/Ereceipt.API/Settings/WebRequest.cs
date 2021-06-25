@@ -1,21 +1,16 @@
 ﻿using Ereceipt.API.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-
 namespace Ereceipt.API.Settings
 {
     public class WebRequest
     {
         private string accessToken;
         private HttpClient httpClient;
-
         public WebRequest(string accessToken = "", int timeout = 20)
         {
             this.accessToken = accessToken;
@@ -25,7 +20,6 @@ namespace Ereceipt.API.Settings
             if (!string.IsNullOrEmpty(accessToken))
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         }
-
         public async Task<Response<T>> GetAsync<T>(string url)
         {
             var resposne = await httpClient.GetAsync(url);
@@ -33,7 +27,6 @@ namespace Ereceipt.API.Settings
             var content = JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
             return content;
         }
-
         public async Task<Response<T>> PostAsync<T>(string url, object Data)
         {
             var con = JsonSerializer.Serialize(Data);
@@ -43,14 +36,12 @@ namespace Ereceipt.API.Settings
             CheckResponse(resposne);
             return JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
         }
-
         public async Task<Response<T>> PostAsync<T>(string url)
         {
             var resposne = await httpClient.PostAsync(url, null);
             CheckResponse(resposne);
             return JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
         }
-
         public async Task<Response<T>> PutAsync<T>(string url, object Data)
         {
             var con = JsonSerializer.Serialize(Data);
@@ -60,14 +51,12 @@ namespace Ereceipt.API.Settings
             CheckResponse(resposne);
             return JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
         }
-
         public async Task<Response<T>> DeleteAsync<T>(string url)
         {
             var resposne = await httpClient.DeleteAsync(url);
             CheckResponse(resposne);
             return JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
         }
-
         public async Task<Response<T>> DeleteAsync<T>(string url, object Data)
         {
             HttpRequestMessage request = new HttpRequestMessage
@@ -83,8 +72,6 @@ namespace Ereceipt.API.Settings
             CheckResponse(resposne);
             return JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
         }
-
-
         private void CheckResponse(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)

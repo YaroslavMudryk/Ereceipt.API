@@ -1,9 +1,5 @@
 ﻿using Ereceipt.API.Constants;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.API.Storage
 {
@@ -12,7 +8,6 @@ namespace Ereceipt.API.Storage
         Task DownloadAsync(string content);
         Task<string> UploadAsync(); 
     }
-
     public class FileStorage : IStorage
     {
         public async Task DownloadAsync(string content)

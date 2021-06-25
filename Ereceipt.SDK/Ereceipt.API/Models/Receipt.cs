@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 namespace Ereceipt.API.Models
 {
     public class Receipt
@@ -37,7 +34,6 @@ namespace Ereceipt.API.Models
         [JsonPropertyName("commentsCount")]
         public int CommentsCount { get; set; }
     }
-
     public enum ReceiptType
     {
         Paymant,
