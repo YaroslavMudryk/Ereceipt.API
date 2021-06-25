@@ -51,7 +51,7 @@ namespace Ereceipt.API
         public ICurrencyService CurrencyService => _currencyService;
         public void AuthorizeUser(Token token)
         {
-            this._token = token;
+            _token = token;
             _accessToken = token.AccessToken;
             InitServicesByToken(_accessToken);
         }
@@ -61,8 +61,7 @@ namespace Ereceipt.API
             var token = await _webRequest.PostAsync<Token>("login", model);
             if (token.OK)
             {
-                this._token = token.Data;
-                InitServicesByToken(token.Data.AccessToken);
+                AuthorizeUser(token.Data);
                 return;
             }
             throw new AuthFailedException(token.ErrorMessage);
