@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -67,7 +68,21 @@ namespace Ereceipt.API.Settings
             return JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
         }
 
+        public async Task<Response<T>> DeleteAsync<T>(string url, object Data)
+        {
+            HttpRequestMessage request = new HttpRequestMessage
+            {
+                Content = new StringContent(JsonSerializer.Serialize(Data), Encoding.UTF8, "application/json"),
+                Method = HttpMethod.Delete,
+                RequestUri = new Uri(url)
+            };
+            var resposne = await httpClient.SendAsync(request);
 
+
+            //var resposne = await httpClient.DeleteAsync(url);
+            CheckResponse(resposne);
+            return JsonSerializer.Deserialize<Response<T>>(await resposne.Content.ReadAsStringAsync());
+        }
 
 
         private void CheckResponse(HttpResponseMessage response)
